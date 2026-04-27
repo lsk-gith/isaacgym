@@ -101,99 +101,99 @@
              
   <section id="simulation-tuning">
 <h1>Simulation Tuning<a class="headerlink" href="#simulation-tuning" title="Permalink to this heading"></a></h1>
-<p>There are many factors that affect simulation stability and performance.</p>
+<p>There are many factors that affect simulation stability and performance.(有许多因素会影响仿真的稳定性和性能。)</p>
 <section id="simulation-parameters">
 <span id="tuning-sim-params"></span><h2>Simulation Parameters<a class="headerlink" href="#simulation-parameters" title="Permalink to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">SimParams</span></code> allow you to specify parameters for the physics solver.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SimParams</span></code> allow you to specify parameters for the physics solver.(<code class="docutils literal notranslate"><span class="pre">SimParams</span></code> 允许您为物理求解器指定参数。)</p>
 </section>
 <section id="simulation-parameters-tuning">
 <h2>Simulation Parameters Tuning<a class="headerlink" href="#simulation-parameters-tuning" title="Permalink to this heading"></a></h2>
-<p>Either PhysX CPU or Flex could be used as a simulation backend. Support of PhysX GPU Articulation Solver will be added soon. There are 2 common parameters that could be tuned to improved performance and/or simulation stability - timestep and number of substeps and a number of engine specific parameters. Deformable object simulation is supported only be Flex at the moment.</p>
+<p>Either PhysX CPU or Flex could be used as a simulation backend. Support of PhysX GPU Articulation Solver will be added soon. There are 2 common parameters that could be tuned to improved performance and/or simulation stability - timestep and number of substeps and a number of engine specific parameters. Deformable object simulation is supported only be Flex at the moment.(PhysX CPU 或 Flex 都可以用作仿真后端。对 PhysX GPU 关节求解器的支持将很快添加。有两个常见的参数可以调整以提高性能和/或仿真稳定性——时间步长和子步数，以及一些引擎特定的参数。目前，只有 Flex 支持可变形物体仿真。)</p>
 <section id="common-parameters">
 <h3>Common Parameters<a class="headerlink" href="#common-parameters" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>dt</strong> - Simulation timestep, the default is <strong>1/60 s</strong></p></li>
-<li><p><strong>substeps</strong> - Number of simulation substeps, the default is <strong>2</strong>. The effective simulation timestep is <strong>dt/substeps</strong>.</p></li>
+<li><p><strong>dt</strong> - Simulation timestep, the default is <strong>1/60 s</strong>(仿真时间步长，默认为 <strong>1/60 秒</strong>)</p></li>
+<li><p><strong>substeps</strong> - Number of simulation substeps, the default is <strong>2</strong>. The effective simulation timestep is <strong>dt/substeps</strong>.(仿真子步数，默认为 <strong>2</strong>。实际仿真时间步长为 <strong>dt/substeps</strong>。)</p></li>
 </ul>
-<p>The <strong>dt</strong> parameter is the time step used to advance the simulation, in seconds.  Accurate and stable physics simulation requires fairly short timesteps, generally under 1/50th of a second. Time steps that are too long can lead to instabilities, especially with fast-moving objects, strong forces, or complex articulated assemblies. In addition to advancing the simulation, you will typically have some code for querying the state of the world and applying controls during every iteration of the loop. The <strong>dt</strong> parameter, then, determines the frequency at which you interact with the simulation.  Quite often, the frequency of that interaction is lower than the frequency required for stable physics simulation.  The <strong>num_substeps</strong> parameter can be used to subdivide each timestep into equal sub-intervals to achieve a stable physics simulation.  In the snippet above, <strong>dt</strong> is 1/60, so you can interact with the simulation 60 times during every simulated second.  But <strong>num_substeps</strong> is 2, which means that the physics simulation advances in increments of 1/120 seconds. These are the default simulation parameters.</p>
+<p>The <strong>dt</strong> parameter is the time step used to advance the simulation, in seconds.  Accurate and stable physics simulation requires fairly short timesteps, generally under 1/50th of a second. Time steps that are too long can lead to instabilities, especially with fast-moving objects, strong forces, or complex articulated assemblies. In addition to advancing the simulation, you will typically have some code for querying the state of the world and applying controls during every iteration of the loop. The <strong>dt</strong> parameter, then, determines the frequency at which you interact with the simulation.  Quite often, the frequency of that interaction is lower than the frequency required for stable physics simulation.  The <strong>num_substeps</strong> parameter can be used to subdivide each timestep into equal sub-intervals to achieve a stable physics simulation.  In the snippet above, <strong>dt</strong> is 1/60, so you can interact with the simulation 60 times during every simulated second.  But <strong>num_substeps</strong> is 2, which means that the physics simulation advances in increments of 1/120 seconds. These are the default simulation parameters.(<strong>dt</strong> 参数是用于推进仿真的时间步长，以秒为单位。准确且稳定的物理仿真需要相当短的时间步长，通常低于 1/50 秒。过大的时间步长可能导致不稳定，尤其是在涉及快速移动的物体、强大力或复杂关节组件时。除了推进仿真之外，通常还会在每次循环迭代中编写一些代码来查询世界状态并施加控制。因此，<strong>dt</strong> 参数决定了您与仿真交互的频率。通常，这种交互的频率低于稳定物理仿真所需的频率。<strong>num_substeps</strong> 参数可用于将每个时间步细分为相等的子间隔，以实现稳定的物理仿真。在上面的代码片段中，<strong>dt</strong> 为 1/60，因此您可以在每个仿真秒内与仿真交互 60 次。而 <strong>num_substeps</strong> 为 2，这意味着物理仿真以 1/120 秒的增量推进。这些是默认的仿真参数。)</p>
 </section>
 <section id="flex">
 <h3>Flex<a class="headerlink" href="#flex" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>solver_type</strong> - there are 6 constraint solvers available for Flex, numbered as follows:</p></li>
-<li><p><strong>0 - XPBD (GPU)</strong> - a position-based solver that uses an iterative descent method, this method is less accurate than the Newton solvers (below), but generally fast and robust for moderately stiff systems.</p></li>
+<li><p><strong>solver_type</strong> - there are 6 constraint solvers available for Flex, numbered as follows:(<strong>solver_type</strong> - Flex 有 6 种可用的约束求解器，编号如下：)</p></li>
+<li><p><strong>0 - XPBD (GPU)</strong> - a position-based solver that uses an iterative descent method, this method is less accurate than the Newton solvers (below), but generally fast and robust for moderately stiff systems.(一种基于位置的求解器，使用迭代下降法，该方法不如牛顿求解器（见下文）精确，但通常对于中等刚度的系统而言快速且鲁棒。)</p></li>
 </ul>
-<p>Flex also supports a nonlinear Newton solver with a number of different linear solvers as a backend, these are listed below:</p>
+<p>Flex also supports a nonlinear Newton solver with a number of different linear solvers as a backend, these are listed below:(Flex 还支持非线性牛顿求解器，它以多个不同的线性求解器作为后端，如下所列：)</p>
 <ul class="simple">
-<li><p><strong>1 - Newton Jacobi (GPU)</strong> - Jacobi solver on GPU (CUDA)</p></li>
-<li><p><strong>2 - Newton LDLT (CPU)</strong> - Cholesky backend on CPU (Eigen-based)</p></li>
-<li><p><strong>3 - Newton PCG1 (CPU)</strong> - Preconditioned conjugate gradient on CPU (Eigen-based)</p></li>
-<li><p><strong>4 - Newton PCG2 (GPU)</strong> - Preconditioned conjugate gradient on GPU (CUDA)</p></li>
-<li><p><strong>5 - Newton PCR (GPU)</strong> - Preconditioned conjugate residual method on GPU (CUDA)</p></li>
+<li><p><strong>1 - Newton Jacobi (GPU)</strong> - Jacobi solver on GPU (CUDA)(GPU 上的 Jacobi 求解器 (CUDA))</p></li>
+<li><p><strong>2 - Newton LDLT (CPU)</strong> - Cholesky backend on CPU (Eigen-based)(CPU 上的 Cholesky 后端 (基于 Eigen))</p></li>
+<li><p><strong>3 - Newton PCG1 (CPU)</strong> - Preconditioned conjugate gradient on CPU (Eigen-based)(CPU 上的预条件共轭梯度 (基于 Eigen))</p></li>
+<li><p><strong>4 - Newton PCG2 (GPU)</strong> - Preconditioned conjugate gradient on GPU (CUDA)(GPU 上的预条件共轭梯度 (CUDA))</p></li>
+<li><p><strong>5 - Newton PCR (GPU)</strong> - Preconditioned conjugate residual method on GPU (CUDA)(GPU 上的预条件共轭残差法 (CUDA))</p></li>
 </ul>
-<p>The default and recommended one is <strong>5</strong> - <strong>Newton PCR</strong> solver, the CPU backends may be very slow for large systems and are mostly present for verification purposes.</p>
+<p>The default and recommended one is <strong>5</strong> - <strong>Newton PCR</strong> solver, the CPU backends may be very slow for large systems and are mostly present for verification purposes.(默认且推荐的是 <strong>5</strong> - <strong>Newton PCR</strong> 求解器，对于大型系统，CPU 后端可能非常慢，主要用于验证目的。)</p>
 <ul class="simple">
-<li><p><strong>num_outer_iterations</strong> - number of iterations taken by the solver per simulation substep.</p></li>
-<li><p><strong>num_inner_iterations</strong> - number of linear solver iterations taken for each outer iteration, is used only by Newton solvers</p></li>
-<li><p><strong>relaxation</strong> - control the convergence rate of the solver. The default values is 0.75 Values greater than 1 may lead to instability. Newton solvers currently use a zero velocity starting iterate, so if not converged sufficiently too high relaxation can introduce a kind of numerical equivalent to damping = 1 - (1 - relaxation)^numOuterIterations.</p></li>
-<li><p><strong>warm_start</strong> - Fraction of the cached Lagrange multipliers to be used on the next simulation step. Accelerates convergence, the default, conservative values is 0.4. Larger values could lead to a more bouncy behaviour and some times instabilities in case of presence of fast movement and/or large, rapidly changing forces in a system. In a situation where you are trying to simulate a quite slow-moving system with a lot of contacts - say robotics manipulation tasks with grasping complex shapes you can benefit from trying higher warm start values, up to 1.0.</p></li>
-<li><p><strong>shape_collision_distance</strong> - Distance in meters for particles to maintain against rigid shapes (separate from radius parameter).</p></li>
-<li><p><strong>shape_collision_margin</strong> - Distance in meters at which contacts are generated. Flex uses a speculative contact model, when feature pairs (e.g.: vertices/edges) come within this distance of each other at the start of a time-step a contact constraint will be generated. If bodies are moving quickly then the margin should be large enough to ensure that contacts are not missed during a time-step. One way to formalize this is to say that if the maximum velocity a feature travels with is v and the time-step is dt, then the margin should be margin = v*dt/substeps. If you are dropping objects from a large height and seeing them ‘pop’ back up, then it is likely to having to low a collision margin (objects interpenetrate and are then ejected).</p></li>
+<li><p><strong>num_outer_iterations</strong> - number of iterations taken by the solver per simulation substep.(求解器在每个仿真子步中执行的迭代次数。)</p></li>
+<li><p><strong>num_inner_iterations</strong> - number of linear solver iterations taken for each outer iteration, is used only by Newton solvers(每次外部迭代中线性求解器的迭代次数，仅由牛顿求解器使用)</p></li>
+<li><p><strong>relaxation</strong> - control the convergence rate of the solver. The default values is 0.75 Values greater than 1 may lead to instability. Newton solvers currently use a zero velocity starting iterate, so if not converged sufficiently too high relaxation can introduce a kind of numerical equivalent to damping = 1 - (1 - relaxation)^numOuterIterations.(控制求解器的收敛速度。默认值为 0.75。大于 1 的值可能导致不稳定。牛顿求解器当前使用零速度作为起始迭代，因此如果没有充分收敛，过高的松弛度可能会引入一种数值上的阻尼，其效果等同于 damping = 1 - (1 - relaxation)^numOuterIterations。)</p></li>
+<li><p><strong>warm_start</strong> - Fraction of the cached Lagrange multipliers to be used on the next simulation step. Accelerates convergence, the default, conservative values is 0.4. Larger values could lead to a more bouncy behaviour and some times instabilities in case of presence of fast movement and/or large, rapidly changing forces in a system. In a situation where you are trying to simulate a quite slow-moving system with a lot of contacts - say robotics manipulation tasks with grasping complex shapes you can benefit from trying higher warm start values, up to 1.0.(在下一个仿真步骤中使用的缓存拉格朗日乘子的比例。加速收敛，默认保守值为 0.4。较大的值可能导致更具弹性的行为，并且在系统中存在快速移动和/或大且快速变化的力时，有时会导致不稳定。在您试图模拟具有大量接触的慢速移动系统（例如抓取复杂形状的机器人操作任务）的情况下，尝试更高的热启动值（最高 1.0）可能会带来好处。)</p></li>
+<li><p><strong>shape_collision_distance</strong> - Distance in meters for particles to maintain against rigid shapes (separate from radius parameter).(粒子与刚性形状保持的距离（以米为单位），与半径参数分开。)</p></li>
+<li><p><strong>shape_collision_margin</strong> - Distance in meters at which contacts are generated. Flex uses a speculative contact model, when feature pairs (e.g.: vertices/edges) come within this distance of each other at the start of a time-step a contact constraint will be generated. If bodies are moving quickly then the margin should be large enough to ensure that contacts are not missed during a time-step. One way to formalize this is to say that if the maximum velocity a feature travels with is v and the time-step is dt, then the margin should be margin = v*dt/substeps. If you are dropping objects from a large height and seeing them ‘pop’ back up, then it is likely to having to low a collision margin (objects interpenetrate and are then ejected).(生成接触的距离（以米为单位）。Flex 使用一种推测性接触模型，当特征对（例如顶点/边）在时间步开始时彼此进入这个距离内时，将生成一个接触约束。如果物体移动很快，那么边距应足够大，以确保在时间步内不会错过接触。一种形式化的方法是：如果一个特征移动的最大速度为 v，时间步长为 dt，那么边距应为 margin = v*dt/substeps。如果您从高处掉落物体并看到它们“弹”回来，那么很可能是碰撞边距太小（物体相互穿透然后被弹出）。)</p></li>
 </ul>
-<p>The most universal way of improving simulation stability (convergence) and decreasing penetrations is increasing number of substeps. But it could be simulationally quite costly. Other methods to try are:</p>
+<p>The most universal way of improving simulation stability (convergence) and decreasing penetrations is increasing number of substeps. But it could be simulationally quite costly. Other methods to try are:(提高仿真稳定性（收敛性）和减少穿透的最通用方法是增加子步数。但这可能在计算上成本较高。可以尝试的其他方法有：)</p>
 <p>In case lack of convergence increasing number of outer and inner iteration could help. Another source of instabilities could be dues to the bad initial configuration and presence of self-collisions. It can be diagnosed by visualizing contact forces in the system and disabling self-collisions for a robot whenever it is possible or fixing the initial configuration.
-In addition to increasing number of substeps making shapeCollisionDistance larger when it is possible could help to prevent penetrations for fast moving objects. In case penetrations are present in a slow moving system, like robotic arms, first of all contact forces generated in a simulation should checked and reduced if needed, for example by making robot motors weaker.</p>
-<p>Shape representation in Flex is through triangle meshes - all primitive shapes including spheres, capsules, and boxes are represented internally by triangle meshes stored in a GPU BVH structure (spheres and capsules can be thought of as a single degenerate triangle + thickness). This unified representation means Flex can handle non-convex and arbitrary triangle meshes for dynamic physical shapes, however unlike e.g.: convex polyhedra, triangle soups do not generally define “inside/outside” regions. This means once interpenetration occurs it cannot be resolved in a well defined way. To avoid interpenetrations it is recommended to use a sufficient thickness layer on the collision shapes.</p>
+In addition to increasing number of substeps making shapeCollisionDistance larger when it is possible could help to prevent penetrations for fast moving objects. In case penetrations are present in a slow moving system, like robotic arms, first of all contact forces generated in a simulation should checked and reduced if needed, for example by making robot motors weaker.(在收敛不足的情况下，增加外部和内部迭代次数可能会有所帮助。不稳定的另一个来源可能是初始配置不佳以及存在自碰撞。可以通过可视化系统中的接触力来诊断，并在可能的情况下禁用机器人的自碰撞或修正初始配置。除了增加子步数外，在可能的情况下增大 shapeCollisionDistance 有助于防止快速移动物体的穿透。如果在慢速移动系统（如机械臂）中出现穿透，首先应检查仿真中产生的接触力，并在必要时降低它们，例如通过减弱机器人电机的力度。)</p>
+<p>Shape representation in Flex is through triangle meshes - all primitive shapes including spheres, capsules, and boxes are represented internally by triangle meshes stored in a GPU BVH structure (spheres and capsules can be thought of as a single degenerate triangle + thickness). This unified representation means Flex can handle non-convex and arbitrary triangle meshes for dynamic physical shapes, however unlike e.g.: convex polyhedra, triangle soups do not generally define “inside/outside” regions. This means once interpenetration occurs it cannot be resolved in a well defined way. To avoid interpenetrations it is recommended to use a sufficient thickness layer on the collision shapes.(Flex 中的形状表示是通过三角形网格进行的——所有基本形状（包括球体、胶囊和盒子）在内部均由存储在 GPU BVH 结构中的三角形网格表示（球体和胶囊可以看作是一个退化三角形 + 厚度）。这种统一的表示意味着 Flex 可以处理动态物理形状的非凸和任意三角形网格，但与凸多面体不同，三角形网格通常不定义“内部/外部”区域。这意味着一旦发生相互穿透，就无法以明确的方式解决。为避免相互穿透，建议在碰撞形状上使用足够厚的层。)</p>
 </section>
 <section id="physx">
 <h3>PhysX<a class="headerlink" href="#physx" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>num_threads</strong> - number of CPU cores used by PhysX. Default is 4. Setting to 0 will run the simulation on the thread that calls PxScene::simulate().  A value greater than 0 will spawn numCores-1 worker</p></li>
-<li><p><strong>solver_type</strong> -type of solver used. The default and recommended to use is 1 - <strong>TGS</strong>: temporal gauss seidel solver. It is a non-linear iterative solver.</p></li>
-<li><p><strong>contact_offset</strong> - shapes whose distance is less than the sum of their contactOffset values will generate contacts. Default 0.02 m</p></li>
-<li><p><strong>rest_offset</strong> - two shapes will come to rest at a distance equal to the sum of their restOffset values. Default is 0.01 m</p></li>
-<li><p><strong>num_position_iterations</strong>  - PhysX solver position iterations count. Default 4</p></li>
-<li><p><strong>num_velocity_iterations</strong> - PhysX solver velocity iterations count. Default 1</p></li>
-<li><p><strong>bounce_threshold_velocity</strong> - A contact with a relative velocity below this will not bounce. Default is 0.2 m/s</p></li>
-<li><p><strong>max_depenetration_velocity</strong> - The maximum velocity permitted to be introduced by the solver to correct for penetrations in contacts. Default is 100.0 m/s</p></li>
+<li><p><strong>num_threads</strong> - number of CPU cores used by PhysX. Default is 4. Setting to 0 will run the simulation on the thread that calls PxScene::simulate().  A value greater than 0 will spawn numCores-1 worker(PhysX 使用的 CPU 核心数。默认为 4。设置为 0 将在调用 PxScene::simulate() 的线程上运行仿真。大于 0 的值将生成 numCores-1 个工作线程)</p></li>
+<li><p><strong>solver_type</strong> -type of solver used. The default and recommended to use is 1 - <strong>TGS</strong>: temporal gauss seidel solver. It is a non-linear iterative solver.(使用的求解器类型。默认且推荐使用的是 1 - <strong>TGS</strong>：时域高斯-赛德尔求解器。它是一种非线性迭代求解器。)</p></li>
+<li><p><strong>contact_offset</strong> - shapes whose distance is less than the sum of their contactOffset values will generate contacts. Default 0.02 m(距离小于两者 contactOffset 值之和的形状将生成接触。默认 0.02 米)</p></li>
+<li><p><strong>rest_offset</strong> - two shapes will come to rest at a distance equal to the sum of their restOffset values. Default is 0.01 m(两个形状将静止在距离等于两者 restOffset 值之和的位置。默认 0.01 米)</p></li>
+<li><p><strong>num_position_iterations</strong>  - PhysX solver position iterations count. Default 4(PhysX 求解器的位置迭代次数。默认 4)</p></li>
+<li><p><strong>num_velocity_iterations</strong> - PhysX solver velocity iterations count. Default 1(PhysX 求解器的速度迭代次数。默认 1)</p></li>
+<li><p><strong>bounce_threshold_velocity</strong> - A contact with a relative velocity below this will not bounce. Default is 0.2 m/s(相对速度低于此值的接触不会反弹。默认 0.2 米/秒)</p></li>
+<li><p><strong>max_depenetration_velocity</strong> - The maximum velocity permitted to be introduced by the solver to correct for penetrations in contacts. Default is 100.0 m/s(求解器允许引入以纠正接触穿透的最大速度。默认 100.0 米/秒)</p></li>
 </ul>
-<p>To improve solver convergence, usually only position iterations number should be increased. Velocity iterations can negatively impact solver convergence. They are there to reduce some energy gain from penetrations but make the overall simulation less stiff. Good the default choice of velocity iterations for the TGS solver is 0. Instability has to be looked at at a case-by-case basis. However, general rules are:</p>
-<p>If it is caused by deep penetration, either more sub-steps should be used or limiting the energy the solver can inject to correct errors will help. See <code class="docutils literal notranslate"><span class="pre">PxRigidBody::setMaxDepenetrationVelocity</span></code>. The default value is 5 m/s but a larger value, e.g. 100m/s, can help to remove penetrations in the case of big forces present.</p>
-<p>Increasing joint armature values, if possible, can also increase simulation stability.</p>
-<p>If instability is basically the system failing to converge, increasing the number of position iterations or sub-stepping should help.
-If PGS is used, substepping has a much bigger influence on sim quality than increasing iterations, but substepping is way more expensive (iterations are relatively cheap).
-If TGS is used, substepping and iterations are more similar in terms of how they impact convergence. Iterations are much cheaper than a substep, but not as cheap as the PGS solver. Whenever possible, using TGS instead of PGS is highly recommended. Other parameters that may influence stability are: shape contact offset (margin), rest offset (inflation)</p>
+<p>To improve solver convergence, usually only position iterations number should be increased. Velocity iterations can negatively impact solver convergence. They are there to reduce some energy gain from penetrations but make the overall simulation less stiff. Good the default choice of velocity iterations for the TGS solver is 0. Instability has to be looked at at a case-by-case basis. However, general rules are:(为了提高求解器的收敛性，通常只需要增加位置迭代次数。速度迭代可能会对求解器收敛产生负面影响。它们的作用是减少穿透带来的一些能量增益，但会降低整体仿真的刚度。对于 TGS 求解器，速度迭代的默认良好选择是 0。不稳定性必须根据具体情况进行分析。然而，一般原则是：)</p>
+<p>If it is caused by deep penetration, either more sub-steps should be used or limiting the energy the solver can inject to correct errors will help. See <code class="docutils literal notranslate"><span class="pre">PxRigidBody::setMaxDepenetrationVelocity</span></code>. The default value is 5 m/s but a larger value, e.g. 100m/s, can help to remove penetrations in the case of big forces present.(如果是由深度穿透引起的，要么使用更多的子步，要么限制求解器为纠正错误而注入的能量将有所帮助。请参阅 <code class="docutils literal notranslate"><span class="pre">PxRigidBody::setMaxDepenetrationVelocity</span></code>。默认值为 5 米/秒，但在存在大力的情况下，较大的值（例如 100 米/秒）有助于消除穿透。)</p>
+<p>Increasing joint armature values, if possible, can also increase simulation stability.(如果可能，增加关节的 armature 值也可以提高仿真稳定性。)</p>
+<p>If instability is basically the system failing to converge, increasing the number of position iterations or sub-stepping should help.(如果不稳定性本质上是由系统无法收敛引起的，那么增加位置迭代次数或子步数应该会有所帮助。)</p>
+<p>If PGS is used, substepping has a much bigger influence on sim quality than increasing iterations, but substepping is way more expensive (iterations are relatively cheap).(如果使用 PGS，子步对仿真质量的影响比增加迭代大得多，但子步的成本也高得多（迭代相对便宜）。)</p>
+<p>If TGS is used, substepping and iterations are more similar in terms of how they impact convergence. Iterations are much cheaper than a substep, but not as cheap as the PGS solver. Whenever possible, using TGS instead of PGS is highly recommended. Other parameters that may influence stability are: shape contact offset (margin), rest offset (inflation)(如果使用 TGS，子步和迭代在影响收敛的方式上更为相似。迭代比子步便宜得多，但不如 PGS 求解器便宜。在任何可能的情况下，强烈建议使用 TGS 而不是 PGS。其他可能影响稳定性的参数包括：形状接触偏移（边距）、静止偏移（膨胀）。)</p>
 </section>
 <section id="scene-parameters">
 <h3>Scene parameters<a class="headerlink" href="#scene-parameters" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>bounce_threshold_velocity</strong> - relative velocity required to trigger a bounce. The default is 0.2 m/s, which is some cases could be pretty high. Reducing could give a more natural bouncing behaviour, for example in case of bouncing balls.</p></li>
-<li><p><strong>friction_offset_threshold</strong> - the contact distance at which friction starts being computed. The default is 0.04 m. If a very small objects are simulated, it should be decreased.</p></li>
-<li><p><strong>friction_correlation_distance</strong> - contact points can be merged into a single friction anchor if the distance between the contacts is smaller than correlation distance. The default is 0.025 m.</p></li>
+<li><p><strong>bounce_threshold_velocity</strong> - relative velocity required to trigger a bounce. The default is 0.2 m/s, which is some cases could be pretty high. Reducing could give a more natural bouncing behaviour, for example in case of bouncing balls.(触发反弹所需的相对速度。默认值为 0.2 米/秒，在某些情况下可能相当高。降低该值可以获得更自然的反弹行为，例如在弹跳球的情况下。)</p></li>
+<li><p><strong>friction_offset_threshold</strong> - the contact distance at which friction starts being computed. The default is 0.04 m. If a very small objects are simulated, it should be decreased.(开始计算摩擦的接触距离。默认值为 0.04 米。如果模拟非常小的物体，应该减小该值。)</p></li>
+<li><p><strong>friction_correlation_distance</strong> - contact points can be merged into a single friction anchor if the distance between the contacts is smaller than correlation distance. The default is 0.025 m.(如果接触点之间的距离小于关联距离，则可以将这些接触点合并为单个摩擦锚点。默认值为 0.025 米。)</p></li>
 </ul>
 </section>
 <section id="physx-visual-debugger-pvd">
 <h3>PhysX Visual Debugger (PVD)<a class="headerlink" href="#physx-visual-debugger-pvd" title="Permalink to this heading"></a></h3>
 <p>The PhysX Visual Debugger (PVD) allows you to visualize, debug, and interact with physical scene representation when PhysX simulation is used:
-<a class="reference external" href="https://developer.nvidia.com/pvd-tutorials">https://developer.nvidia.com/pvd-tutorials</a></p>
-<p>PVD will only work if you are using the PhysX backend.</p>
-<p>If you are building from source, search premake5.lua for a line like this:</p>
+<a class="reference external" href="https://developer.nvidia.com/pvd-tutorials">https://developer.nvidia.com/pvd-tutorials</a>(当使用 PhysX 仿真时，PhysX Visual Debugger (PVD) 允许您可视化、调试和与物理场景表示进行交互：)</p>
+<p>PVD will only work if you are using the PhysX backend.(PVD 仅在您使用 PhysX 后端时有效。)</p>
+<p>If you are building from source, search premake5.lua for a line like this:(如果您从源码构建，请在 premake5.lua 中搜索类似以下的行：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local</span> <span class="n">physxLibs</span> <span class="o">=</span> <span class="s2">&quot;profile&quot;</span>
 </pre></div>
 </div>
-<p>The physxLibs variable should be set to either “profile” or “checked” for PVD to work.  If you change this variable, make sure to rebuild.</p>
-<p>By default, Gym will try to connect to PVD running on localhost.  If you wish to connect to PVD on a different machine, set the environment variable GYM_PVD_HOST to the IP or hostname.</p>
-<p>You can set the environment variable in the terminal or you can do it in your Python script like this:</p>
+<p>The physxLibs variable should be set to either “profile” or “checked” for PVD to work.  If you change this variable, make sure to rebuild.(要使 PVD 工作，physxLibs 变量应设置为“profile”或“checked”。如果更改此变量，请确保重新构建。)</p>
+<p>By default, Gym will try to connect to PVD running on localhost.  If you wish to connect to PVD on a different machine, set the environment variable GYM_PVD_HOST to the IP or hostname.(默认情况下，Gym 将尝试连接到本地主机上运行的 PVD。如果您希望连接到不同机器上的 PVD，请将环境变量 GYM_PVD_HOST 设置为该机器的 IP 或主机名。)</p>
+<p>You can set the environment variable in the terminal or you can do it in your Python script like this:(您可以在终端中设置环境变量，也可以在 Python 脚本中进行设置，如下所示：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GYM_PVD_HOST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;xxx.yyy.zzz.www&quot;</span>
 </pre></div>
 </div>
-<p>If you want to save the PVD capture to a file instead of connecting to PVD live, set the environment variable GYM_PVD_FILE to the file name.  You may omit the extension.</p>
-<p>For example:</p>
+<p>If you want to save the PVD capture to a file instead of connecting to PVD live, set the environment variable GYM_PVD_FILE to the file name.  You may omit the extension.(如果您希望将 PVD 捕获保存到文件而不是实时连接到 PVD，请将环境变量 GYM_PVD_FILE 设置为文件名。您可以省略扩展名。)</p>
+<p>For example:(例如：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GYM_PVD_FILE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span>
 </pre></div>
 </div>
-<p>will create a file named foo.pxd2.</p>
+<p>will create a file named foo.pxd2.(将创建一个名为 foo.pxd2 的文件。)</p>
 </section>
 </section>
 </section>
