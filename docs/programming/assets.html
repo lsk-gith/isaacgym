@@ -106,15 +106,15 @@
 <h1>Assets<a class="headerlink" href="#assets" title="Permalink to this heading"></a></h1>
 <section id="loading-assets">
 <h2>Loading Assets<a class="headerlink" href="#loading-assets" title="Permalink to this heading"></a></h2>
-<p>Gym currently supports loading URDF and MJCF file formats.  Loading an asset file creates a <code class="docutils literal notranslate"><span class="pre">GymAsset</span></code> object that includes the definiton of all the bodies, collision shapes, visual attachments, joints, and degrees of freedom (DOFs).  Soft bodies and particles are also supported with some formats.</p>
-<p>When loading an asset, you specify the asset root directory and the asset path relative to the root.  This split is necessary because the importers sometimes need to search for external reference files like meshes or materials within the asset directory tree. The asset root directory can be specified as an absolute path or as a path relative to the current working directory.  In our Python examples, we load assets like this:</p>
+<p>Gym currently supports loading URDF and MJCF file formats.  Loading an asset file creates a <code class="docutils literal notranslate"><span class="pre">GymAsset</span></code> object that includes the definiton of all the bodies, collision shapes, visual attachments, joints, and degrees of freedom (DOFs).  Soft bodies and particles are also supported with some formats.(Gym目前支持加载URDF和MJCF文件格式。加载资源文件会创建一个<code class="docutils literal notranslate"><span class="pre">GymAsset</span></code>对象，该对象包含所有刚体、碰撞形状、视觉附件、关节和自由度(DOF)的定义。某些格式还支持软体和粒子。)</p>
+<p>When loading an asset, you specify the asset root directory and the asset path relative to the root.  This split is necessary because the importers sometimes need to search for external reference files like meshes or materials within the asset directory tree. The asset root directory can be specified as an absolute path or as a path relative to the current working directory.  In our Python examples, we load assets like this:(加载资源时，您需要指定资源根目录以及相对于根目录的资源路径。这种分割是必要的，因为导入器有时需要在资源目录树中搜索外部引用文件，如网格或材质。资源根目录可以指定为绝对路径或相对于当前工作目录的路径。在我们的Python示例中，我们像这样加载资源：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_root</span> <span class="o">=</span> <span class="s2">&quot;../../assets&quot;</span>
 <span class="n">asset_file</span> <span class="o">=</span> <span class="s2">&quot;urdf/franka_description/robots/franka_panda.urdf&quot;</span>
 <span class="n">asset</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">load_asset</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">asset_root</span><span class="p">,</span> <span class="n">asset_file</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">load_asset</span></code> method uses the file name extension to determine the asset file format.  Supported extensions include <strong>.urdf</strong> for URDF files, and <strong>.xml</strong> for MJCF files.</p>
-<p>Sometimes, you may wish to pass extra information to the asset importer.  This is accomplished by specifying an optional <code class="docutils literal notranslate"><span class="pre">AssetOptions</span></code> parameter:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">load_asset</span></code> method uses the file name extension to determine the asset file format.  Supported extensions include <strong>.urdf</strong> for URDF files, and <strong>.xml</strong> for MJCF files.(<code class="docutils literal notranslate"><span class="pre">load_asset</span></code>方法使用文件扩展名来确定资源文件格式。支持的扩展名包括URDF文件的<strong>.urdf</strong>和MJCF文件的<strong>.xml</strong>。)</p>
+<p>Sometimes, you may wish to pass extra information to the asset importer.  This is accomplished by specifying an optional <code class="docutils literal notranslate"><span class="pre">AssetOptions</span></code> parameter:(有时，您可能希望向资源导入器传递额外信息。这可以通过指定一个可选的<code class="docutils literal notranslate"><span class="pre">AssetOptions</span></code>参数来实现：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_options</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">AssetOptions</span><span class="p">()</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">fix_base_link</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">armature</span> <span class="o">=</span> <span class="mf">0.01</span>
@@ -124,55 +124,54 @@
 </div>
 <section id="loading-meshes-in-assets">
 <h3>Loading Meshes in Assets<a class="headerlink" href="#loading-meshes-in-assets" title="Permalink to this heading"></a></h3>
-<p>Gym uses Assimp to load meshes specified in assets. Some meshes can have materials or textures specified directly in the mesh file. If the asset file also specifies a material for that mesh, then the materials from the asset take priority. To use the mesh materials instead, use</p>
+<p>Gym uses Assimp to load meshes specified in assets. Some meshes can have materials or textures specified directly in the mesh file. If the asset file also specifies a material for that mesh, then the materials from the asset take priority. To use the mesh materials instead, use(Gym使用Assimp加载资源中指定的网格。某些网格可以直接在网格文件中指定材质或纹理。如果资源文件也为该网格指定了材质，则资源中的材质优先。要改用网格材质，请使用)</p>
 <blockquote>
 <div><p>asset_options.use_mesh_materials = True.</p>
 </div></blockquote>
-<p>Gym tries to load normals directly from the mesh. If the mesh has incomplete normals, Gym will generate smooth vertex normals. To force Gym to always generate smooth vertex normals/face normals, use</p>
+<p>Gym tries to load normals directly from the mesh. If the mesh has incomplete normals, Gym will generate smooth vertex normals. To force Gym to always generate smooth vertex normals/face normals, use(Gym会尝试直接从网格加载法线。如果网格的法线不完整，Gym将生成平滑的顶点法线。要强制Gym始终生成平滑的顶点法线/面法线，请分别使用)</p>
 <blockquote>
 <div><p>asset_options.mesh_normal_mode = gymapi.COMPUTE_PER_VERTEX</p>
 </div></blockquote>
-<p>or</p>
+<p>or(或)</p>
 <blockquote>
 <div><p>asset_options.mesh_normal_mode = gymapi.COMPUTE_PER_FACE</p>
 </div></blockquote>
-<p>respectively.</p>
-<p>If a mesh has submeshes that represent a convex decomposition, Gym can load the submeshes as seperate shapes in the asset. To enable this, use</p>
+<p>If a mesh has submeshes that represent a convex decomposition, Gym can load the submeshes as seperate shapes in the asset. To enable this, use(如果网格包含表示凸分解的子网格，Gym可以将这些子网格作为资源中的单独形状加载。要启用此功能，请使用)</p>
 <blockquote>
 <div><p>asset_options.convex_decomposition_from_submeshes = True.</p>
 </div></blockquote>
 </section>
 <section id="overriding-inertial-properties">
 <h3>Overriding Inertial Properties<a class="headerlink" href="#overriding-inertial-properties" title="Permalink to this heading"></a></h3>
-<p>Inertial properties for rigid bodies are important for simulation accuracy and stability.  Each rigid body has a center of mass and an inertia tensor.  URDF and MJCF allow for specifying these values, but sometimes the values are incorrect.  For example, there are many URDF assets in the wild with seemingly arbitrary inertia tensors, which can cause undesirable simulation artifacts.  To overcome this, Isaac Gym allows for explicitly overriding the center of mass and inertia tensors using values computed from the geometries of collision shapes:</p>
+<p>Inertial properties for rigid bodies are important for simulation accuracy and stability.  Each rigid body has a center of mass and an inertia tensor.  URDF and MJCF allow for specifying these values, but sometimes the values are incorrect.  For example, there are many URDF assets in the wild with seemingly arbitrary inertia tensors, which can cause undesirable simulation artifacts.  To overcome this, Isaac Gym allows for explicitly overriding the center of mass and inertia tensors using values computed from the geometries of collision shapes:(刚体的惯性属性对仿真的准确性和稳定性很重要。每个刚体都有一个质心和惯性张量。URDF和MJCF允许指定这些值，但有时这些值是不正确的。例如，许多公开的URDF资源带有看似任意指定的惯性张量，这可能导致不良的仿真伪影。为了解决这个问题，Isaac Gym允许使用根据碰撞形状几何计算出的值来显式覆盖质心和惯性张量：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_options</span><span class="o">.</span><span class="n">override_com</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">override_inertia</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
-<p>By default, these options are both False, which means that the importers will use the values given in the original assets.</p>
-<p>See <code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code> for sample usage.</p>
+<p>By default, these options are both False, which means that the importers will use the values given in the original assets.(默认情况下，这两个选项都为False，这意味着导入器将使用原始资源中给定的值。)</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code> for sample usage.(示例用法请参见<code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code>。)</p>
 </section>
 <section id="convex-decomposition">
 <h3>Convex Decomposition<a class="headerlink" href="#convex-decomposition" title="Permalink to this heading"></a></h3>
-<p>Isaac Gym supports automatic convex decomposition of triangle meshes used for collision shapes.  This is only needed when using PhysX, since PhysX requires convex meshes for collisions (Flex is able to use triangle meshes directly).  Without convex decomposition, each triangle mesh shape is approximated using a single convex hull.  This is efficient, but a single convex hull may not accurately represent the shape of the original triangle mesh.  Convex decomposition creates a more accurate shape approximation consisting of multiple convex shapes.  This is particularly useful for applications like grasping, where the exact shape of physical objects is important.</p>
-<p>By default, convex decomposition is disabled.  You can enable it using a flag in the AssetOptions during asset import:</p>
+<p>Isaac Gym supports automatic convex decomposition of triangle meshes used for collision shapes.  This is only needed when using PhysX, since PhysX requires convex meshes for collisions (Flex is able to use triangle meshes directly).  Without convex decomposition, each triangle mesh shape is approximated using a single convex hull.  This is efficient, but a single convex hull may not accurately represent the shape of the original triangle mesh.  Convex decomposition creates a more accurate shape approximation consisting of multiple convex shapes.  This is particularly useful for applications like grasping, where the exact shape of physical objects is important.(Isaac Gym支持对用于碰撞形状的三角形网格进行自动凸分解。这仅在使用PhysX时需要，因为PhysX要求使用凸网格进行碰撞（Flex可以直接使用三角形网格）。如果没有凸分解，每个三角形网格形状将使用单个凸包近似。这很高效，但单个凸包可能无法准确表示原始三角形网格的形状。凸分解会创建由多个凸形状组成的更精确的形状近似。这对于抓取等应用特别有用，因为物体的精确形状很重要。)</p>
+<p>By default, convex decomposition is disabled.  You can enable it using a flag in the AssetOptions during asset import:(默认情况下，凸分解是禁用的。您可以在导入资源时使用AssetOptions中的一个标志来启用它：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_options</span><span class="o">.</span><span class="n">vhacd_enabled</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
-<p>Gym uses a third party library (<a class="reference external" href="https://github.com/kmammou/v-hacd">V-HACD</a>) to perform the convex decomposition.  There are many parameters that affect the decomposition speed and the quality of the result.  They are exposed to Python in the <a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.VhacdParams" title="isaacgym.gymapi.VhacdParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.VhacdParams</span></code></a> class, which is included in AssetOptions:</p>
+<p>Gym uses a third party library (<a class="reference external" href="https://github.com/kmammou/v-hacd">V-HACD</a>) to perform the convex decomposition.  There are many parameters that affect the decomposition speed and the quality of the result.  They are exposed to Python in the <a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.VhacdParams" title="isaacgym.gymapi.VhacdParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.VhacdParams</span></code></a> class, which is included in AssetOptions:(Gym使用第三方库(<a class="reference external" href="https://github.com/kmammou/v-hacd">V-HACD</a>)来执行凸分解。有许多参数会影响分解速度和结果质量。这些参数在<a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.VhacdParams" title="isaacgym.gymapi.VhacdParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.VhacdParams</span></code></a>类中暴露给Python，该类包含在AssetOptions中：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_options</span><span class="o">.</span><span class="n">vhacd_params</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">300000</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">vhacd_params</span><span class="o">.</span><span class="n">max_convex_hulls</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">vhacd_params</span><span class="o">.</span><span class="n">max_num_vertices_per_ch</span> <span class="o">=</span> <span class="mi">64</span>
 </pre></div>
 </div>
-<p>See <code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code> for sample usage.</p>
-<p>Convex decomposition can take a long time, depending on the paramaters and the number of meshes.  To avoid recomputing convex decompositions every time, Gym uses a simple caching strategy.  When a mesh is decomposed for the first time, the results of the decomposition will be stored in a cache directory for fast loading on subsequent runs.  By default, the cache directory is <code class="docutils literal notranslate"><span class="pre">${HOME}/.isaacgym/vhacd</span></code>.  The cache directory and any files it contains can be safely deleted at any time.</p>
-<p>You can view the results of convex decomposition by clicking on the Viewer tab in the viewer GUI and enabling the “Render Collision Meshes” checkbox.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code> for sample usage.(示例用法请参见<code class="docutils literal notranslate"><span class="pre">python/examples/convex_decomposition.py</span></code>。)</p>
+<p>Convex decomposition can take a long time, depending on the paramaters and the number of meshes.  To avoid recomputing convex decompositions every time, Gym uses a simple caching strategy.  When a mesh is decomposed for the first time, the results of the decomposition will be stored in a cache directory for fast loading on subsequent runs.  By default, the cache directory is <code class="docutils literal notranslate"><span class="pre">${HOME}/.isaacgym/vhacd</span></code>.  The cache directory and any files it contains can be safely deleted at any time.(凸分解可能需要很长时间，具体取决于参数和网格数量。为避免每次都重新计算凸分解，Gym使用了一个简单的缓存策略。当网格第一次被分解时，分解结果将存储在一个缓存目录中，以便在后续运行时快速加载。默认情况下，缓存目录是<code class="docutils literal notranslate"><span class="pre">${HOME}/.isaacgym/vhacd</span></code>。可以随时安全地删除缓存目录及其包含的任何文件。)</p>
+<p>You can view the results of convex decomposition by clicking on the Viewer tab in the viewer GUI and enabling the “Render Collision Meshes” checkbox.(您可以通过单击查看器GUI中的Viewer选项卡并启用“Render Collision Meshes”复选框来查看凸分解的结果。)</p>
 </section>
 </section>
 <section id="procedural-assets">
 <h2>Procedural Assets<a class="headerlink" href="#procedural-assets" title="Permalink to this heading"></a></h2>
-<p>Simple geometric assets like boxes, capsules, and spheres can be created procedurally:</p>
+<p>Simple geometric assets like boxes, capsules, and spheres can be created procedurally:(盒子、胶囊和球体等简单几何资源可以通过程序化方式创建：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_options</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">AssetOptions</span><span class="p">()</span>
 <span class="n">asset_options</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="mf">10.0</span>
 
@@ -184,32 +183,34 @@
 </section>
 <section id="asset-options">
 <h2>Asset Options<a class="headerlink" href="#asset-options" title="Permalink to this heading"></a></h2>
-<p>See <a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.AssetOptions" title="isaacgym.gymapi.AssetOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.AssetOptions</span></code></a>.</p>
+<p>See <a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.AssetOptions" title="isaacgym.gymapi.AssetOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.AssetOptions</span></code></a>.(请参见<a class="reference internal" href="../api/python/struct_py.html#isaacgym.gymapi.AssetOptions" title="isaacgym.gymapi.AssetOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaacgym.gymapi.AssetOptions</span></code></a>。)</p>
 </section>
 <section id="asset-introspection">
 <h2>Asset Introspection<a class="headerlink" href="#asset-introspection" title="Permalink to this heading"></a></h2>
-<p>You can inspect the collections of components in each asset, including rigid bodies, joints, and DOFs.  See <code class="docutils literal notranslate"><span class="pre">examples/asset_info.py</span></code> for sample usage.</p>
+<p>You can inspect the collections of components in each asset, including rigid bodies, joints, and DOFs.  See <code class="docutils literal notranslate"><span class="pre">examples/asset_info.py</span></code> for sample usage.(您可以检查每个资源中的组件集合，包括刚体、关节和自由度。示例用法请参见<code class="docutils literal notranslate"><span class="pre">examples/asset_info.py</span></code>。)</p>
 </section>
 <section id="creating-actors">
 <h2>Creating Actors<a class="headerlink" href="#creating-actors" title="Permalink to this heading"></a></h2>
-<p>Loading or creating an asset does not automatically add it to the simulation.  A <code class="docutils literal notranslate"><span class="pre">GymAsset</span></code> serves as a blueprint for actors and can be instanced multiple times in a simulation with different poses and individualized properties, as described in the section on <a class="reference internal" href="simsetup.html#envs-and-actors"><span class="std std-ref">Environments and Actors</span></a>.</p>
+<p>Loading or creating an asset does not automatically add it to the simulation.  A <code class="docutils literal notranslate"><span class="pre">GymAsset</span></code> serves as a blueprint for actors and can be instanced multiple times in a simulation with different poses and individualized properties, as described in the section on <a class="reference internal" href="simsetup.html#envs-and-actors"><span class="std std-ref">Environments and Actors</span></a>.(加载或创建资源并不会自动将其添加到仿真中。<code class="docutils literal notranslate"><span class="pre">GymAsset</span></code>作为角色的蓝图，可以在仿真中多次实例化，并具有不同的姿态和个性化属性，如<a class="reference internal" href="simsetup.html#envs-and-actors"><span class="std std-ref">环境与角色</span></a>一节所述。)</p>
 <p>If the collision filter for the actor is set to -1, the actor will use filters loaded in by the asset loaders. This is important for MJCF files that specify non-zero contypes/conaffinities or have other contacts specified.
 Setting the collision filter to 0 will enable collisions between all shapes in the actor.
-Setting the collision filter to anything &gt; 0 will disable all self collisions.</p>
+Setting the collision filter to anything &gt; 0 will disable all self collisions.(如果角色的碰撞过滤器设置为-1，则该角色将使用资源加载器加载的过滤器。这对于指定了非零contypes/conaffinities或指定了其他接触的MJCF文件非常重要。
+将碰撞过滤器设置为0将启用角色中所有形状之间的碰撞。
+将碰撞过滤器设置为任何大于0的值将禁用所有自碰撞。)</p>
 </section>
 <section id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
-<p>The asset pipeline is a work in progress, so there are some limitations.</p>
+<p>The asset pipeline is a work in progress, so there are some limitations.(资源管线正在开发中，因此存在一些限制。)</p>
 <ul class="simple">
-<li><p>The URDF importer can only load meshes in OBJ format.  Many URDF models come with STL collision meshes and DAE visual meshes, but those need to be manually converted to OBJ for the current importer.</p></li>
-<li><p>The MJCF importer supports primitive shapes only, such as boxes, capsules, and spheres.  Mesh loading is currently not available in that importer.</p></li>
-<li><p>The MJCF importer supports multiple joints between a pair of bodies, which is useful to define independently named and controllable degrees of freedom.  This is used in the <code class="docutils literal notranslate"><span class="pre">humanoid_20_5.xml</span></code> model to define independent motion limits for shoulders, hips, and other compound joints.</p></li>
-<li><p>The MJCF importer only supports files where the worldbody has no more than one direct child body. This means that MJCF files that define an entire environment may not be supported. For example, one MJCF file cannot contain both a robot and a ground plane.</p></li>
+<li><p>The URDF importer can only load meshes in OBJ format.  Many URDF models come with STL collision meshes and DAE visual meshes, but those need to be manually converted to OBJ for the current importer.(URDF导入器只能加载OBJ格式的网格。许多URDF模型附带STL碰撞网格和DAE视觉网格，但需要手动将它们转换为OBJ格式才能被当前导入器使用。)</p></li>
+<li><p>The MJCF importer supports primitive shapes only, such as boxes, capsules, and spheres.  Mesh loading is currently not available in that importer.(MJCF导入器仅支持基本形状，如盒子、胶囊和球体。该导入器目前不支持网格加载。)</p></li>
+<li><p>The MJCF importer supports multiple joints between a pair of bodies, which is useful to define independently named and controllable degrees of freedom.  This is used in the <code class="docutils literal notranslate"><span class="pre">humanoid_20_5.xml</span></code> model to define independent motion limits for shoulders, hips, and other compound joints.(MJCF导入器支持一对刚体之间的多个关节，这对于定义独立命名且可控的自由度很有用。在<code class="docutils literal notranslate"><span class="pre">humanoid_20_5.xml</span></code>模型中，这用于定义肩部、髋部和其他复合关节的独立运动限制。)</p></li>
+<li><p>The MJCF importer only supports files where the worldbody has no more than one direct child body. This means that MJCF files that define an entire environment may not be supported. For example, one MJCF file cannot contain both a robot and a ground plane.(MJCF导入器仅支持worldbody最多只有一个直接子刚体的文件。这意味着定义整个环境的MJCF文件可能不受支持。例如，一个MJCF文件不能同时包含机器人和地面。)</p></li>
 </ul>
 </section>
 <section id="relevant-examples">
 <h2>Relevant Examples<a class="headerlink" href="#relevant-examples" title="Permalink to this heading"></a></h2>
-<p>Take a look at the Python examples <code class="docutils literal notranslate"><span class="pre">asset_info.py</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_monkey.py</span></code> for working with assets.</p>
+<p>Take a look at the Python examples <code class="docutils literal notranslate"><span class="pre">asset_info.py</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_monkey.py</span></code> for working with assets.(请查看Python示例<code class="docutils literal notranslate"><span class="pre">asset_info.py</span></code>和<code class="docutils literal notranslate"><span class="pre">joint_monkey.py</span></code>，了解如何处理资源。)</p>
 </section>
 </section>
 
