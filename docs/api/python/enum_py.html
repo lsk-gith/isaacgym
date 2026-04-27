@@ -100,112 +100,112 @@
            <div itemprop="articleBody">
              
   <section id="python-enums">
-<h1>Python Enums<a class="headerlink" href="#python-enums" title="Permalink to this heading"></a></h1>
+<h1>Python Enums</h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.SimType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">SimType</span></span><a class="headerlink" href="#isaacgym.gymapi.SimType" title="Permalink to this definition"></a></dt>
-<dd><p>Simulation Backend type</p>
-<p>Members:</p>
+<dd><p>仿真物理引擎类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>SIM_PHYSX : PhysX Backend</p>
-<p>SIM_FLEX : Flex Backend</p>
+<div><p>SIM_PHYSX : PhysX 物理引擎</p>
+<p>SIM_FLEX : Flex 物理引擎</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.UpAxis">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">UpAxis</span></span><a class="headerlink" href="#isaacgym.gymapi.UpAxis" title="Permalink to this definition"></a></dt>
-<dd><p>Up axis</p>
-<p>Members:</p>
+<dd><p>向上轴</p>
+<p>成员：</p>
 <blockquote>
-<div><p>UP_AXIS_Y : Y axis points up</p>
-<p>UP_AXIS_Z : Z axis points up</p>
+<div><p>UP_AXIS_Y : Y 轴向上</p>
+<p>UP_AXIS_Z : Z 轴向上</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.ContactCollection">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">ContactCollection</span></span><a class="headerlink" href="#isaacgym.gymapi.ContactCollection" title="Permalink to this definition"></a></dt>
-<dd><p>Contact collection mode.</p>
-<p>Members:</p>
+<dd><p>接触收集模式。</p>
+<p>成员：</p>
 <blockquote>
-<div><p>CC_NEVER : Don’t collect any contacts (value = 0).</p>
-<p>CC_LAST_SUBSTEP : Collect contacts for last substep only (value = 1).</p>
-<p>CC_ALL_SUBSTEPS : Collect contacts for all substeps (value = 2) (default).</p>
+<div><p>CC_NEVER : 不收集任何接触（值 = 0）。</p>
+<p>CC_LAST_SUBSTEP : 仅收集最后一个子步的接触（值 = 1）。</p>
+<p>CC_ALL_SUBSTEPS : 收集所有子步的接触（值 = 2）（默认）。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.JointType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">JointType</span></span><a class="headerlink" href="#isaacgym.gymapi.JointType" title="Permalink to this definition"></a></dt>
-<dd><p>Types of Joint supported by the simulator</p>
-<p>Members:</p>
+<dd><p>模拟器支持的关节类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>JOINT_INVALID : invalid/unknown/uninitialized joint type.</p>
-<p>JOINT_FIXED : Fixed joint. Bodies will move together.</p>
-<p>JOINT_REVOLUTE : Revolute or Hinge Joint. Bodies will rotate on one defined axis.</p>
-<p>JOINT_PRISMATIC : Prismatic Joints. Bodies will move linearly on one axis.</p>
-<p>JOINT_BALL : Ball Joint. Bodies will rotate on all directions on point of reference.</p>
-<p>JOINT_PLANAR : Planar Joint. Bodies will move on defined plane.</p>
-<p>JOINT_FLOATING : Floating Joint. No constraints added between bodies.</p>
+<div><p>JOINT_INVALID : 无效/未知/未初始化的关节类型。</p>
+<p>JOINT_FIXED : 固定关节。两个刚体将一起运动。</p>
+<p>JOINT_REVOLUTE : 旋转关节或铰链关节。刚体将绕一个指定轴旋转。</p>
+<p>JOINT_PRISMATIC : 棱柱关节。刚体将沿一个轴线性移动。</p>
+<p>JOINT_BALL : 球关节。刚体将在参考点上绕所有方向旋转。</p>
+<p>JOINT_PLANAR : 平面关节。刚体将在指定平面上移动。</p>
+<p>JOINT_FLOATING : 浮动关节。刚体之间无约束。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.DofType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">DofType</span></span><a class="headerlink" href="#isaacgym.gymapi.DofType" title="Permalink to this definition"></a></dt>
-<dd><p>Types of degree of freedom supported by the simulator</p>
-<p>Members:</p>
+<dd><p>模拟器支持的自由度类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>DOF_INVALID : invalid/unknown/uninitialized DOF type</p>
-<p>DOF_ROTATION : The degrees of freedom correspond to a rotation between bodies</p>
-<p>DOF_TRANSLATION : The degrees of freedom correspond to a translation between bodies.</p>
+<div><p>DOF_INVALID : 无效/未知/未初始化的自由度类型</p>
+<p>DOF_ROTATION : 自由度对应于刚体之间的旋转</p>
+<p>DOF_TRANSLATION : 自由度对应于刚体之间的平移。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.DofDriveMode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">DofDriveMode</span></span><a class="headerlink" href="#isaacgym.gymapi.DofDriveMode" title="Permalink to this definition"></a></dt>
-<dd><p>Possible drive modes used to control actor DoFs.  A DoF that is set to a specific drive mode will ignore drive commands for other modes.</p>
-<p>Members:</p>
+<dd><p>用于控制执行器自由度的可能驱动模式。设置为特定驱动模式的自由度将忽略其他模式的驱动命令。</p>
+<p>成员：</p>
 <blockquote>
-<div><p>DOF_MODE_NONE : The DOF is free to move without any controls.</p>
-<p>DOF_MODE_POS : The DOF will respond to position target commands.</p>
-<p>DOF_MODE_VEL : The DOF will respond to velocity target commands.</p>
-<p>DOF_MODE_EFFORT : The DOF will respond to effort (force or torque) commands.</p>
+<div><p>DOF_MODE_NONE : 自由度自由运动，没有任何控制。</p>
+<p>DOF_MODE_POS : 自由度将响应位置目标命令。</p>
+<p>DOF_MODE_VEL : 自由度将响应速度目标命令。</p>
+<p>DOF_MODE_EFFORT : 自由度将响应力（或扭矩）命令。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.TendonType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">TendonType</span></span><a class="headerlink" href="#isaacgym.gymapi.TendonType" title="Permalink to this definition"></a></dt>
-<dd><p>Tendon type</p>
-<p>Members:</p>
+<dd><p>肌腱类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>TENDON_FIXED : Fixed tendon</p>
-<p>TENDON_SPATIAL : Spatial tendon</p>
+<div><p>TENDON_FIXED : 固定肌腱</p>
+<p>TENDON_SPATIAL : 空间肌腱</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.TensorDataType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">TensorDataType</span></span><a class="headerlink" href="#isaacgym.gymapi.TensorDataType" title="Permalink to this definition"></a></dt>
-<dd><p>Defines the data type of tensors.</p>
-<p>Members:</p>
+<dd><p>定义张量的数据类型。</p>
+<p>成员：</p>
 <blockquote>
-<div><p>DTYPE_FLOAT32 : float32</p>
-<p>DTYPE_UINT32 : uint32</p>
-<p>DTYPE_UINT64 : uint64</p>
-<p>DTYPE_UINT8 : uint8</p>
-<p>DTYPE_INT16 : int16</p>
+<div><p>DTYPE_FLOAT32 : 32位浮点数</p>
+<p>DTYPE_UINT32 : 32位无符号整数</p>
+<p>DTYPE_UINT64 : 64位无符号整数</p>
+<p>DTYPE_UINT8 : 8位无符号整数</p>
+<p>DTYPE_INT16 : 16位有符号整数</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.CoordinateSpace">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">CoordinateSpace</span></span><a class="headerlink" href="#isaacgym.gymapi.CoordinateSpace" title="Permalink to this definition"></a></dt>
-<dd><p>Coordinate system for positions.</p>
-<p>Members:</p>
+<dd><p>位置的坐标系。</p>
+<p>成员：</p>
 <blockquote>
 <div><p>ENV_SPACE</p>
 <p>LOCAL_SPACE</p>
@@ -216,34 +216,34 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.MeshType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">MeshType</span></span><a class="headerlink" href="#isaacgym.gymapi.MeshType" title="Permalink to this definition"></a></dt>
-<dd><p>Types of mesh used by the simulator</p>
-<p>Members:</p>
+<dd><p>模拟器使用的网格类型</p>
+<p>成员：</p>
 <blockquote>
 <div><p>MESH_NONE</p>
-<p>MESH_COLLISION : Collision mesh. Mesh is used only for Collision checks and calculations of inertia. For improved performance, it should be an approximation of the body volume by a coarse, convex mesh.</p>
-<p>MESH_VISUAL : Visual mesh. Mesh is used only for rendering purposes.</p>
-<p>MESH_VISUAL_AND_COLLISION : Visual and Collision Mesh. Mesh is used for both rendering and collision checks</p>
+<p>MESH_COLLISION : 碰撞网格。网格仅用于碰撞检查和惯性计算。为获得更好性能，应使用粗粒度的凸网格近似刚体体积。</p>
+<p>MESH_VISUAL : 视觉网格。网格仅用于渲染。</p>
+<p>MESH_VISUAL_AND_COLLISION : 视觉与碰撞网格。网格同时用于渲染和碰撞检查。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.ImageType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">ImageType</span></span><a class="headerlink" href="#isaacgym.gymapi.ImageType" title="Permalink to this definition"></a></dt>
-<dd><p>Types of image generated by the sensors</p>
-<p>Members:</p>
+<dd><p>传感器生成的图像类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>IMAGE_COLOR : Image RGB. Regular image as a camera sensor would generate. Each pixel is made of three values of the selected data type GymTensorDataType, representing the intensity of Red, Green and Blue.</p>
-<p>IMAGE_DEPTH : Depth Image. Each pixel is one value of the selected data type GymTensorDataType, representing how far that point is from the center of the camera.</p>
-<p>IMAGE_SEGMENTATION : Segmentation Image. Each pixel is one integer value from the selected data type GymTensorDataType, that represents the class of the object that is displayed on that pixel</p>
-<p>IMAGE_OPTICAL_FLOW : Optical Flow image - each pixel is a 2D vector of the screen-space velocity of the bodies visible in that pixel</p>
+<div><p>IMAGE_COLOR : RGB图像。标准相机传感器生成的图像。每个像素由所选数据类型（GymTensorDataType）的三个值组成，分别表示红、绿、蓝的强度。</p>
+<p>IMAGE_DEPTH : 深度图像。每个像素是所选数据类型（GymTensorDataType）的一个值，表示该点到相机中心的距离。</p>
+<p>IMAGE_SEGMENTATION : 分割图像。每个像素是所选数据类型（GymTensorDataType）的一个整数值，表示该像素上显示的物体类别。</p>
+<p>IMAGE_OPTICAL_FLOW : 光流图像 - 每个像素是一个2D向量，表示该像素可见物体的屏幕空间速度。</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.IndexDomain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">IndexDomain</span></span><a class="headerlink" href="#isaacgym.gymapi.IndexDomain" title="Permalink to this definition"></a></dt>
-<dd><p>Domain type for indexing into component buffers.</p>
-<p>Members:</p>
+<dd><p>组件缓冲区索引的域类型。</p>
+<p>成员：</p>
 <blockquote>
 <div><p>DOMAIN_ACTOR</p>
 <p>DOMAIN_ENV</p>
@@ -254,29 +254,29 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.SoftMaterialType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">SoftMaterialType</span></span><a class="headerlink" href="#isaacgym.gymapi.SoftMaterialType" title="Permalink to this definition"></a></dt>
-<dd><p>Types of soft material supported in simulation</p>
-<p>Members:</p>
+<dd><p>仿真中支持的软材料类型</p>
+<p>成员：</p>
 <blockquote>
-<div><p>MAT_COROTATIONAL : Lagrange co-rotational formulation of finite elements</p>
-<p>MAT_NEOHOOKEAN : Neo-Hookean formulation of finite elements</p>
+<div><p>MAT_COROTATIONAL : 拉格朗日共旋有限元公式</p>
+<p>MAT_NEOHOOKEAN : 新胡克有限元公式</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.CameraFollowMode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">CameraFollowMode</span></span><a class="headerlink" href="#isaacgym.gymapi.CameraFollowMode" title="Permalink to this definition"></a></dt>
-<dd><p>Camera follow mode</p>
-<p>Members:</p>
+<dd><p>相机跟随模式</p>
+<p>成员：</p>
 <blockquote>
-<div><p>FOLLOW_POSITION : Camera attached to a rigid body follows only its position</p>
-<p>FOLLOW_TRANSFORM : Camera attached to a rigid body follows its transform (both position and orientation)</p>
+<div><p>FOLLOW_POSITION : 附着在刚体上的相机仅跟随其位置</p>
+<p>FOLLOW_TRANSFORM : 附着在刚体上的相机跟随其变换（位置和方向）</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.KeyboardInput">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">KeyboardInput</span></span><a class="headerlink" href="#isaacgym.gymapi.KeyboardInput" title="Permalink to this definition"></a></dt>
-<dd><p>Members:</p>
+<dd><p>成员：</p>
 <p>KEY_SPACE</p>
 <p>KEY_APOSTROPHE</p>
 <p>KEY_COMMA</p>
@@ -387,7 +387,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="isaacgym.gymapi.MouseInput">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaacgym.gymapi.</span></span><span class="sig-name descname"><span class="pre">MouseInput</span></span><a class="headerlink" href="#isaacgym.gymapi.MouseInput" title="Permalink to this definition"></a></dt>
-<dd><p>Members:</p>
+<dd><p>成员：</p>
 <p>MOUSE_LEFT_BUTTON</p>
 <p>MOUSE_RIGHT_BUTTON</p>
 <p>MOUSE_MIDDLE_BUTTON</p>
