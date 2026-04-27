@@ -106,35 +106,35 @@
              
   <section id="simulation-setup">
 <h1>Simulation Setup<a class="headerlink" href="#simulation-setup" title="Permalink to this heading"></a></h1>
-<p>Isaac Gym provides a simulation interface that lets you create dynamic environments for training intelligent agents.  The API is procedural and data-oriented rather than object-oriented.  This facilitates efficient exchange of information between the core implementation written in C++ and client scripts written in Python.  For example, rather than working with hierarchical collections of body and joint objects, Isaac Gym uses flat data arrays to represent the state and controls of the simulation.  This makes it easy to work with the data using common Python libraries like NumPy, which provides efficient methods to manipulate multidimensional arrays.  It is also possible to access the simulation data as CPU or GPU tensors that can be shared with common deep learning frameworks like PyTorch.</p>
-<p>The core API, including supporting data types and constants, is defined in the <code class="docutils literal notranslate"><span class="pre">gymapi</span></code> module:</p>
+<p>Isaac Gym provides a simulation interface that lets you create dynamic environments for training intelligent agents.  The API is procedural and data-oriented rather than object-oriented.  This facilitates efficient exchange of information between the core implementation written in C++ and client scripts written in Python.  For example, rather than working with hierarchical collections of body and joint objects, Isaac Gym uses flat data arrays to represent the state and controls of the simulation.  This makes it easy to work with the data using common Python libraries like NumPy, which provides efficient methods to manipulate multidimensional arrays.  It is also possible to access the simulation data as CPU or GPU tensors that can be shared with common deep learning frameworks like PyTorch.(Isaac Gym 提供了一个仿真接口，允许您创建用于训练智能体的动态环境。该 API 采用过程式和数据导向的设计，而非面向对象。这有利于在用 C++ 编写的核心实现和用 Python 编写的客户端脚本之间高效地交换信息。例如，Isaac Gym 不使用分层式的身体和关节对象集合，而是使用扁平数据数组来表示仿真的状态和控制。这使得使用 NumPy 等常用 Python 库轻松处理数据变得容易，NumPy 提供了高效的方法来操作多维数组。此外，还可以将仿真数据作为 CPU 或 GPU 张量访问，这些张量可以与 PyTorch 等常用深度学习框架共享。)</p>
+<p>The core API, including supporting data types and constants, is defined in the(核心 API（包括支持的数据类型和常量）在 gymapi 模块中定义：) <code class="docutils literal notranslate"><span class="pre">gymapi</span></code> module:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">isaacgym</span> <span class="kn">import</span> <span class="n">gymapi</span>
 </pre></div>
 </div>
-<p>All of the Gym API functions can be accessed as methods of a singleton <code class="docutils literal notranslate"><span class="pre">Gym</span></code> object acquired on startup:</p>
+<p>All of the Gym API functions can be accessed as methods of a singleton(所有 Gym API 函数都可以作为启动时获取的单例 Gym 对象的方法来访问：) <code class="docutils literal notranslate"><span class="pre">Gym</span></code> object acquired on startup:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gym</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">acquire_gym</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="creating-a-simulation">
 <span id="creating-simulations"></span><h2>Creating a Simulation<a class="headerlink" href="#creating-a-simulation" title="Permalink to this heading"></a></h2>
-<p>The <strong>gym</strong> object by itself doesn’t do very much.  It only serves as a proxy for the Gym API.  To create a simulation, you need to call the <code class="docutils literal notranslate"><span class="pre">create_sim</span></code> method:</p>
+<p>The <strong>gym</strong> object by itself doesn’t do very much.  It only serves as a proxy for the Gym API.  To create a simulation, you need to call the (<strong>gym</strong> 对象本身功能有限，它只是 Gym API 的代理。要创建模拟，需要调用 create_sim 方法：)<code class="docutils literal notranslate"><span class="pre">create_sim</span></code> method:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sim_params</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">SimParams</span><span class="p">()</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">create_sim</span><span class="p">(</span><span class="n">compute_device_id</span><span class="p">,</span> <span class="n">graphics_device_id</span><span class="p">,</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">SIM_PHYSX</span><span class="p">,</span> <span class="n">sim_params</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <strong>sim</strong> object contains physics and graphics contexts that will allow you to load assets, create environments, and interact with the simulation.</p>
-<p>The first argument to <code class="docutils literal notranslate"><span class="pre">create_sim</span></code> is the compute device ordinal, which selects the GPU for physics simulation. The second argument is the graphics device ordinal, which selects the GPU for rendering.  In multi-GPU systems, you can use different devices to perform these roles.  For headless simulation (without a viewer) that doesn’t require any sensor rendering, you can set the graphics device to -1, and no graphics context will be created.</p>
-<p>The third argument specifies which physics backend you wish to use.  Presently, the choices are <code class="docutils literal notranslate"><span class="pre">SIM_PHYSX</span></code> or <code class="docutils literal notranslate"><span class="pre">SIM_FLEX</span></code>.</p>
+<p>The <strong>sim</strong> object contains physics and graphics contexts that will allow you to load assets, create environments, and interact with the simulation.(sim 对象包含物理和图形上下文，允许您加载资源、创建环境并与模拟进行交互。)</p>
+<p>The first argument to <code class="docutils literal notranslate"><span class="pre">create_sim</span></code> is the compute device ordinal, which selects the GPU for physics simulation. The second argument is the graphics device ordinal, which selects the GPU for rendering.  In multi-GPU systems, you can use different devices to perform these roles.  For headless simulation (without a viewer) that doesn’t require any sensor rendering, you can set the graphics device to -1, and no graphics context will be created.(`create_sim` 函数的第一个参数是计算设备序号，用于选择物理模拟的 GPU。第二个参数是图形设备序号，用于选择渲染的 GPU。在多 GPU 系统中，可以使用不同的设备来执行这些角色。对于不需要任何传感器渲染的无头模拟（没有查看器），可以将图形设备设置为 -1，这样就不会创建图形上下文。)</p>
+<p>The third argument specifies which physics backend you wish to use.  Presently, the choices are (第三个参数指定要使用的物理引擎后端。目前可选参数为 SIM_PHYSX 或 SIM_FLEX。)<code class="docutils literal notranslate"><span class="pre">SIM_PHYSX</span></code> or <code class="docutils literal notranslate"><span class="pre">SIM_FLEX</span></code>.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>The PhysX backend offers robust rigid body and articulation simulation that can run on either CPU or GPU.  It is presently the only backend that fully supports the new tensor API.</p></li>
-<li><p>The Flex backend offers soft body and rigid body simulation that runs entirely on the GPU, but it does not fully support the tensor API yet.</p></li>
+<li><p>The PhysX backend offers robust rigid body and articulation simulation that can run on either CPU or GPU.  It is presently the only backend that fully supports the new tensor API.(PhysX物理引擎提供强大的刚体和关节模拟功能，可在CPU或GPU上运行。目前，它是唯一完全支持全新张量API的引擎。)</p></li>
+<li><p>The Flex backend offers soft body and rigid body simulation that runs entirely on the GPU, but it does not fully support the tensor API yet.(Flex物理引擎提供完全在 GPU 上运行的软体和刚体模拟，但目前还不完全支持张量 API。)</p></li>
 </ul>
 </div></blockquote>
-<p>The last argument to <code class="docutils literal notranslate"><span class="pre">create_sim</span></code> contains additional simulation parameters, discussed below.</p>
+<p>The last argument to <code class="docutils literal notranslate"><span class="pre">create_sim</span></code> contains additional simulation parameters, discussed below.(create_sim 的最后一个参数包含其他仿真参数，如下所述。)</p>
 <section id="simulation-parameters">
 <h3>Simulation Parameters<a class="headerlink" href="#simulation-parameters" title="Permalink to this heading"></a></h3>
-<p>The simulation parameters allow you to configure the details of physics simulation.  The settings may vary depending on the physics engine and the characteristics of the task to be simulated.  Picking the right parameters is important for simulation stability and performance.  The folling snippet shows examples of physics parameters:</p>
+<p>The simulation parameters allow you to configure the details of physics simulation.  The settings may vary depending on the physics engine and the characteristics of the task to be simulated.  Picking the right parameters is important for simulation stability and performance.  The folling snippet shows examples of physics parameters:(仿真参数允许您配置物理仿真的细节。这些设置可能因物理引擎和待仿真任务的特性而异。选择正确的参数对于仿真的稳定性和性能至关重要。以下代码片段展示了一些物理参数示例：)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># get default set of parameters</span>
 <span class="n">sim_params</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">SimParams</span><span class="p">()</span>
 
@@ -163,8 +163,8 @@
 <span class="n">sim</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">create_sim</span><span class="p">(</span><span class="n">compute_device_id</span><span class="p">,</span> <span class="n">graphics_device_id</span><span class="p">,</span> <span class="n">physics_engine</span><span class="p">,</span> <span class="n">sim_params</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Some of the parameters are independent of the physics engine, like simulation rate, up axis, or gravity.  Others apply only to a specific physics engine (grouped under <code class="docutils literal notranslate"><span class="pre">.physx</span></code> and <code class="docutils literal notranslate"><span class="pre">.flex</span></code>).  If the simulation is meant to run with only a specific physics engine, it is not necessary to specify the parameters for the other.  Providing parameters for both engines will allow for easily selecting the engine at runtime, e.g. based on a command line argument.</p>
-<p>For more information about simulation parameters, see:</p>
+<p>Some of the parameters are independent of the physics engine, like simulation rate, up axis, or gravity.  Others apply only to a specific physics engine (grouped under <code class="docutils literal notranslate"><span class="pre">.physx</span></code> and <code class="docutils literal notranslate"><span class="pre">.flex</span></code>).  If the simulation is meant to run with only a specific physics engine, it is not necessary to specify the parameters for the other.  Providing parameters for both engines will allow for easily selecting the engine at runtime, e.g. based on a command line argument.(某些参数与物理引擎无关，例如模拟速率、轴向上或重力。其他参数仅适用于特定的物理引擎（归类于 .physx 和 .flex 文件中）。如果模拟仅使用特定的物理引擎运行，则无需指定其他引擎的参数。为两个引擎都提供参数，可以方便地在运行时选择引擎，例如通过命令行参数。)</p>
+<p>For more information about simulation parameters, see:(有关仿真参数的更多信息，请参见：)</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="tuning.html#tuning-sim-params"><span class="std std-ref">tuning simulation parameters</span></a></p></li>
@@ -185,7 +185,7 @@
 </section>
 <section id="creating-a-ground-plane">
 <h3>Creating a Ground Plane<a class="headerlink" href="#creating-a-ground-plane" title="Permalink to this heading"></a></h3>
-<p>Most simulations need a ground plane, unless they take place in zero gravity.  You can configure and create the ground plane like this:</p>
+<p>Most simulations need a ground plane, unless they take place in zero gravity.  You can configure and create the ground plane like this:(大多数模拟都需要地面，除非是在零重力环境下进行。您可以按如下方式配置和创建地面)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># configure the ground plane</span>
 <span class="n">plane_params</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">PlaneParams</span><span class="p">()</span>
 <span class="n">plane_params</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="n">gymapi</span><span class="o">.</span><span class="n">Vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># z-up!</span>
