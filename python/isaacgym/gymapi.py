@@ -102,3 +102,23 @@ def _import_active_version():
 
 
 _import_active_version()
+
+'''
+外部一般会初始化 gym 通常会使用一下函数
+gym = gymapi.acquire_gym()
+
+但在isaacgym/gymapi.py 的源代码中的确没有直接定义 acquire_gym 这个函数，这是因为gymapi.py的动态导入机制
+
+gymapi.py 的末尾调用了 _import_active_version()。这个函数会：
+1.根据当前 Python 的版本（例如 3.8、3.9 等）和操作系统（linux / windows），定位到一个预编译的二进制扩展模块，路径类似：
+    isaacgym/_bindings/linux-x86_64/gym_38.so   (Python 3.8)
+    isaacgym/_bindings/windows-x86_64/gym_38.pyd
+2.使用 importlib.import_module 动态导入该扩展模块
+    （例如 isaacgym._bindings.linux-x86_64.gym_38）。
+3.关键步骤：该函数通过 globals().update(attrs) 将扩展模块中所有的公共属性（包括函数、类、常量等）添加到当前 gymapi 模块的全局命名空间中。attrs 来自于扩展模块的 __dict__（或 __all__）。
+
+因此，acquire_gym 实际上是在那个二进制扩展模块中实现的（通常是用 C++ 编写并绑定到了 Python）。gymapi.py 只是在导入时“拉取”了这些符号，使其看起来像是 gymapi 模块的直接成员。
+
+
+可以尝试在 import isaacgym.gymapi 之后打印 dir(gymapi)，你会看到 'acquire_gym' 在列表中，但它并不在源文件的静态定义中。
+'''
