@@ -39,6 +39,24 @@ args = gymutil.parse_arguments(
 
 # configure sim
 sim_params = gymapi.SimParams()
+'''
+sim_params: 模拟参数配置
+字段	                             作用	                                             常用配置示例
+dt	                             仿真的时间步长（Timestep），即每步模拟的固定时长	         sim_params.dt = 1 / 60 表示每秒60步
+substeps	                     将一步仿真细分为多个子步进行物理计算，有助于提升稳定性	     sim_params.substeps = 2 表示将1步时间再细分2次迭代
+up_axis	                         定义世界坐标系中的"向上"方向轴	                         sim_params.up_axis = gymapi.UP_AXIS_Z 表示Z轴向上
+gravity	                         设置场景中的重力加速度向量	                             sim_params.gravity = gymapi.Vec3(0.0, 0.0, -9.8)
+use_gpu_pipeline	             核心开关：是否启用GPU加速的仿真与渲染管线	             sim_params.use_gpu_pipeline = True 开启后即可使用张量API
+physx.use_gpu	                 PhysX专属：配置物理求解器是否使用GPU加速	             sim_params.physx.use_gpu = True 配合上面的总开关启用
+physx.solver_type	             PhysX专属：选择关节求解器类型（1 为TGS，更稳定）	         sim_params.physx.solver_type = 1
+physx.num_position_iterations	 PhysX专属：位置求解迭代次数，越高接触越稳定，但计算量更大	 sim_params.physx.num_position_iterations = 6
+physx.num_velocity_iterations	 PhysX专属：速度求解迭代次数	                         sim_params.physx.num_velocity_iterations = 1
+physx.contact_offset	         PhysX专属：为提升性能设置的接触检测距离阈值	             sim_params.physx.contact_offset = 0.01
+sim_params.physx.num_threads     PhysX 引擎用于执行物理计算的 CPU 线程数                  default=0 通常的含义是“让 PhysX 自动选择最优线程数” 
+                                                                                         如果use_gpu_pipeline = True即启用 GPU 加速管线，改参数会被忽略，
+
+
+'''
 if args.physics_engine == gymapi.SIM_FLEX:
     sim_params.flex.shape_collision_margin = 0.25
     sim_params.flex.num_outer_iterations = 4
@@ -54,7 +72,14 @@ elif args.physics_engine == gymapi.SIM_PHYSX:
 sim_params.use_gpu_pipeline = False
 if args.use_gpu_pipeline:
     print("WARNING: Forcing CPU pipeline.")
+'''
+应该是你构建仿真世界的第一步。它的核心作用是创建一个包含物理与图形上下文的“仿真世界骨架”，为后续加载物体、创建环境和执行模拟提供基础
 
+compute_device_id	显卡序号 例如:'cuda:0'，选择GPU进行物理模拟
+graphics_device_id	渲染显卡序号，例如:0 在第一张卡上渲染，如果:-1不需要渲染，例如纯RL训练场景
+gymapi.SIM_PHYSX	指定要使用的物理引擎类型（SIM_PHYSX:NVIDIA的PhysX引擎或者SIM_FLEX:Flex引擎基本弃用）
+sim_params	        其他模拟参数 一个 gymapi.SimParams() 类型的对象，用于精细配置仿真的各项参数，包括时间步长、求解器设置、重力方向等
+'''
 sim = gym.create_sim(args.compute_device_id, args.graphics_device_id, args.physics_engine, sim_params)
 if sim is None:
     print("*** Failed to create sim")
